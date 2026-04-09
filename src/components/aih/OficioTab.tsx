@@ -817,7 +817,7 @@ function exportToExcel(records: AIHRow[], dateFrom: string, dateTo: string, conf
 }
 
 // ─── Main Tab Component ───────────────────────────────────────
-export function OficioTab() {
+export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
   const [records, setRecords] = useState<AIHRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [dateFrom, setDateFrom] = useState('');
@@ -923,14 +923,18 @@ export function OficioTab() {
             {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             {showPreview ? 'Ocultar' : 'Visualizar'}
           </Button>
-          <Button size="sm" variant="outline" className="h-8 gap-1.5 text-xs" onClick={handleExportExcel}>
-            <FileSpreadsheet className="w-3.5 h-3.5" />
-            Excel
-          </Button>
-          <Button size="sm" className="h-8 gap-1.5 text-xs" onClick={handleExportWord} disabled={exporting}>
-            {exporting ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
-            Word (.docx)
-          </Button>
+          {!readOnly && (
+            <>
+              <Button size="sm" variant="outline" className="h-8 gap-1.5 text-xs" onClick={handleExportExcel}>
+                <FileSpreadsheet className="w-3.5 h-3.5" />
+                Excel
+              </Button>
+              <Button size="sm" className="h-8 gap-1.5 text-xs" onClick={handleExportWord} disabled={exporting}>
+                {exporting ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                Word (.docx)
+              </Button>
+            </>
+          )}
           <Button size="sm" variant="ghost" className="h-8 gap-1.5 text-xs" onClick={handlePrint}>
             <Printer className="w-3.5 h-3.5" />
           </Button>

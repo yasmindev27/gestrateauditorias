@@ -30,7 +30,7 @@ function fmtCurrency(v: number | null): string {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-export function AIHTab() {
+export function AIHTab({ readOnly = false }: { readOnly?: boolean }) {
   const [records, setRecords] = useState<AIHRow[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
@@ -135,9 +135,11 @@ export function AIHTab() {
           <Button size="sm" variant="secondary" onClick={load} disabled={loading} title="Atualizar" className="shrink-0">
             <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
           </Button>
-          <Button size="sm" onClick={openNew} className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0">
-            <Plus className="w-4 h-4 mr-1" /> Novo
-          </Button>
+          {!readOnly && (
+            <Button size="sm" onClick={openNew} className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0">
+              <Plus className="w-4 h-4 mr-1" /> Novo
+            </Button>
+          )}
         </div>
       </div>
 
@@ -162,7 +164,7 @@ export function AIHTab() {
                 {['Admissão', 'Alta', 'P.', 'Procedimento', 'Clínica', 'Caráter', 'Procedência', 'Encerramento', 'Pendência', 'Total Final', 'Corrig.'].map(h => (
                   <th key={h} className="text-left px-2 py-2.5 font-semibold whitespace-nowrap border-r border-white/10">{h}</th>
                 ))}
-                <th className="sticky right-0 z-20 bg-hospital-header-bg text-left px-2 py-2.5 font-semibold whitespace-nowrap w-20">Ações</th>
+                {!readOnly && <th className="sticky right-0 z-20 bg-hospital-header-bg text-left px-2 py-2.5 font-semibold whitespace-nowrap w-20">Ações</th>}
               </tr>
             </thead>
             <tbody>
@@ -205,25 +207,27 @@ export function AIHTab() {
                         )}>{row.corrigido}</span>
                       ) : '—'}
                     </td>
-                    <td className={cn("sticky right-0 z-10 px-2 py-1.5 whitespace-nowrap border-l border-border", rowBg)}>
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => openEdit(row)}
-                          className="p-1 rounded bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
-                          title="Editar"
-                        >
-                          <Pencil className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(row.id)}
-                          disabled={deletingId === row.id}
-                          className="p-1 rounded bg-destructive/10 hover:bg-destructive/20 text-destructive transition-colors border border-destructive/20"
-                          title="Excluir"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                    </td>
+                    {!readOnly && (
+                      <td className={cn("sticky right-0 z-10 px-2 py-1.5 whitespace-nowrap border-l border-border", rowBg)}>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => openEdit(row)}
+                            className="p-1 rounded bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
+                            title="Editar"
+                          >
+                            <Pencil className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(row.id)}
+                            disabled={deletingId === row.id}
+                            className="p-1 rounded bg-destructive/10 hover:bg-destructive/20 text-destructive transition-colors border border-destructive/20"
+                            title="Excluir"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 );
               })}

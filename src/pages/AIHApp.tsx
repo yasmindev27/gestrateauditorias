@@ -6,9 +6,12 @@ import { MovDocTab } from '@/components/aih/MovDocTab';
 import { RelatoriosTab } from '@/components/aih/RelatoriosTab';
 import { OficioTab } from '@/components/aih/OficioTab';
 import { cn } from '@/lib/utils';
-import { FileSpreadsheet, FileText, BarChart3, ScrollText, LogOut } from 'lucide-react';
+import { FileSpreadsheet, FileText, BarChart3, ScrollText, LogOut, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logoGestrategic from '@/assets/logo-gestrategic.jpg';
+
+// Usuários somente visualização
+const VIEWER_USERS = ['karine'];
 
 type TabKey = 'aih' | 'movdoc' | 'relatorios' | 'oficio';
 
@@ -23,13 +26,17 @@ const AIHApp = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>('aih');
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isViewer, setIsViewer] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) {
         navigate('/auth');
       } else {
-        setUserEmail(session.user.email ?? null);
+        const email = session.user.email ?? '';
+        setUserEmail(email);
+        const username = email.split('@')[0].toLowerCase();
+        setIsViewer(VIEWER_USERS.includes(username));
       }
     });
 
@@ -45,6 +52,8 @@ const AIHApp = () => {
     navigate('/');
   };
 
+  const username = userEmail?.split('@')[0] ?? '';
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
@@ -58,10 +67,15 @@ const AIHApp = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            {userEmail && (
-              <span className="hidden sm:block text-xs text-white/60 capitalize">
-                {userEmail.split('@')[0]}
-              </span>
+            {username && (
+              <div className="hidden sm:flex items-center gap-1.5">
+                <span className="text-xs text-white/60 capitalize">{username}</span>
+                {isViewer && (
+                  <span className="flex items-center gap-1 text-[10px] bg-white/10 text-white/70 px-1.5 py-0.5 rounded">
+                    <Eye className="w-3 h-3" /> visualização
+                  </span>
+                )}
+              </div>
             )}
             <Button
               variant="ghost"
@@ -97,10 +111,10 @@ const AIHApp = () => {
 
       {/* Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        {activeTab === 'aih' && <AIHTab />}
-        {activeTab === 'movdoc' && <MovDocTab />}
+        {activeTab === 'aih' && <AIHTab readOnly={isViewer} />}
+        {activeTab === 'movdoc' && <MovDocTab readOnly={isViewer} />}
         {activeTab === 'relatorios' && <RelatoriosTab />}
-        {activeTab === 'oficio' && <OficioTab />}
+        {activeTab === 'oficio' && <OficioTab readOnly={isViewer} />}
       </main>
     </div>
   );

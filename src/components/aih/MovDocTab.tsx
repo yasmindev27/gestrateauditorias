@@ -122,7 +122,7 @@ function MovForm({ open, onClose, onSaved, editItem }: MovFormProps) {
   );
 }
 
-export function MovDocTab() {
+export function MovDocTab({ readOnly = false }: { readOnly?: boolean }) {
   const [records, setRecords] = useState<MovRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
@@ -173,9 +173,11 @@ export function MovDocTab() {
           <Button size="sm" variant="secondary" onClick={load} disabled={loading}>
             <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
           </Button>
-          <Button size="sm" onClick={() => { setEditItem(null); setFormOpen(true); }} className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Plus className="w-4 h-4 mr-1" /> Novo
-          </Button>
+          {!readOnly && (
+            <Button size="sm" onClick={() => { setEditItem(null); setFormOpen(true); }} className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Plus className="w-4 h-4 mr-1" /> Novo
+            </Button>
+          )}
         </div>
       </div>
 
@@ -226,7 +228,7 @@ export function MovDocTab() {
           <table className="w-full text-sm border-collapse">
             <thead className="sticky top-0 z-10">
               <tr className="bg-hospital-header-bg text-primary-foreground">
-                {['Data de Entrada', 'Qtd. AIH Recebidas', 'Qtd. Saídas', 'Data de Devolução', 'Observação', 'Ações'].map(h => (
+                {['Data de Entrada', 'Qtd. AIH Recebidas', 'Qtd. Saídas', 'Data de Devolução', 'Observação', ...(readOnly ? [] : ['Ações'])].map(h => (
                   <th key={h} className="text-left px-4 py-3 font-semibold whitespace-nowrap border-r border-white/10 last:border-0">{h}</th>
                 ))}
               </tr>
@@ -252,16 +254,18 @@ export function MovDocTab() {
                   </td>
                   <td className="px-4 py-2.5 tabular-nums">{fmtDate(row.data_devolucao)}</td>
                   <td className="px-4 py-2.5 text-muted-foreground max-w-[200px] truncate">{row.observacao ?? '—'}</td>
-                  <td className="px-4 py-2.5">
-                    <div className="flex items-center gap-1">
-                      <button onClick={() => { setEditItem(row); setFormOpen(true); }} className="p-1.5 rounded hover:bg-primary/10 text-primary transition-colors" title="Editar">
-                        <Pencil className="w-3.5 h-3.5" />
-                      </button>
-                      <button onClick={() => handleDelete(row.id)} className="p-1.5 rounded hover:bg-destructive/10 text-destructive transition-colors" title="Excluir">
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </td>
+                  {!readOnly && (
+                    <td className="px-4 py-2.5">
+                      <div className="flex items-center gap-1">
+                        <button onClick={() => { setEditItem(row); setFormOpen(true); }} className="p-1.5 rounded hover:bg-primary/10 text-primary transition-colors" title="Editar">
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button onClick={() => handleDelete(row.id)} className="p-1.5 rounded hover:bg-destructive/10 text-destructive transition-colors" title="Excluir">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
