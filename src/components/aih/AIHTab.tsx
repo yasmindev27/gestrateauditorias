@@ -132,9 +132,9 @@ export function AIHTab({ readOnly = false }: { readOnly?: boolean }) {
             value={competenciaFilter}
             onChange={e => setCompetenciaFilter(e.target.value)}
           />
-          <Button size="sm" variant="secondary" onClick={load} disabled={loading} title="Atualizar" className="shrink-0">
-            <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
-          </Button>
+          <button onClick={load} disabled={loading} title="Atualizar" className="shrink-0 h-9 w-9 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50">
+            <RefreshCw className={cn("w-4 h-4 text-gray-600", loading && "animate-spin")} />
+          </button>
           {!readOnly && (
             <Button size="sm" onClick={openNew} className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0">
               <Plus className="w-4 h-4 mr-1" /> Novo

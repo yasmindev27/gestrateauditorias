@@ -170,9 +170,9 @@ export function MovDocTab({ readOnly = false }: { readOnly?: boolean }) {
           <Badge variant="secondary" className="ml-1 text-xs">{records.length} lançamentos</Badge>
         </div>
         <div className="flex items-center gap-2">
-          <Button size="sm" variant="outline" className="border-border bg-muted hover:bg-muted/80" onClick={load} disabled={loading}>
-            <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
-          </Button>
+          <button onClick={load} disabled={loading} title="Atualizar" className="h-9 w-9 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50">
+            <RefreshCw className={cn("w-4 h-4 text-gray-600", loading && "animate-spin")} />
+          </button>
           {!readOnly && (
             <Button size="sm" onClick={() => { setEditItem(null); setFormOpen(true); }} className="bg-primary text-primary-foreground hover:bg-primary/90">
               <Plus className="w-4 h-4 mr-1" /> Novo

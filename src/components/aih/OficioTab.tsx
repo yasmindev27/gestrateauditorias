@@ -913,31 +913,31 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
           {(dateFrom || dateTo) && (
             <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={() => { setDateFrom(''); setDateTo(''); }}>
               Limpar
-            </Button>
+            </button>
           )}
-          <Button size="sm" variant="outline" className="h-8 border-border bg-muted hover:bg-muted/80" onClick={load} disabled={loading}>
+          <button onClick={load} disabled={loading} title="Atualizar" className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50">
             <RefreshCw className={cn("w-3.5 h-3.5", loading && "animate-spin")} />
-          </Button>
+          </button>
           <div className="h-4 w-px bg-border" />
           <Button size="sm" variant="secondary" className="h-8 gap-1.5 text-xs" onClick={() => setShowPreview(v => !v)}>
             {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             {showPreview ? 'Ocultar' : 'Visualizar'}
-          </Button>
+          </button>
           {!readOnly && (
             <>
               <Button size="sm" variant="outline" className="h-8 gap-1.5 text-xs" onClick={handleExportExcel}>
                 <FileSpreadsheet className="w-3.5 h-3.5" />
                 Excel
-              </Button>
+              </button>
               <Button size="sm" className="h-8 gap-1.5 text-xs" onClick={handleExportWord} disabled={exporting}>
                 {exporting ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
                 Word (.docx)
-              </Button>
+              </button>
             </>
           )}
-          <Button size="sm" variant="outline" className="h-8 border-border bg-muted hover:bg-muted/80" onClick={handlePrint} title="Imprimir">
+          <button onClick={handlePrint} title="Imprimir" className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors">
             <Printer className="w-3.5 h-3.5" />
-          </Button>
+          </button>
         </div>
       </div>
 
