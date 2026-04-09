@@ -1,0 +1,46 @@
+project_id = "cdklpmafyvpkcodvgcwt"
+
+[functions.admin-create-user]
+verify_jwt = false
+
+[functions.admin-update-user]
+verify_jwt = false
+
+[functions.admin-delete-user]
+verify_jwt = false
+
+[functions.classificar-prioridade]
+verify_jwt = false
+
+[functions.gerar-relatorio-chamados]
+verify_jwt = false
+
+[functions.processar-pdf-salus]
+verify_jwt = false
+
+[functions.moderar-mensagem]
+verify_jwt = false
+
+[functions.analisar-incidente-ia]
+verify_jwt = false
+
+[functions.resumo-semanal-incidentes]
+verify_jwt = false
+
+[functions.gerar-quiz-ia]
+verify_jwt = false
+
+[functions.proxy-iframe]
+verify_jwt = false
+
+[functions.gerar-ata-reuniao]
+verify_jwt = false
+
+[functions.enviar-push]
+verify_jwt = false
+
+[functions.gerar-vapid-keys]
+verify_jwt = false
+
+[functions.admin-reset-senhas-massa]
+verify_jwt = false
