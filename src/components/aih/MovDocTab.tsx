@@ -170,7 +170,7 @@ export function MovDocTab() {
           <Badge variant="secondary" className="ml-1 text-xs">{records.length} lançamentos</Badge>
         </div>
         <div className="flex items-center gap-2">
-          <Button size="sm" variant="outline" onClick={load} disabled={loading}>
+          <Button size="sm" variant="secondary" onClick={load} disabled={loading}>
             <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
           </Button>
           <Button size="sm" onClick={() => { setEditItem(null); setFormOpen(true); }} className="bg-primary text-primary-foreground hover:bg-primary/90">
