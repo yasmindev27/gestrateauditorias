@@ -132,7 +132,7 @@ export function AIHTab() {
             value={competenciaFilter}
             onChange={e => setCompetenciaFilter(e.target.value)}
           />
-          <Button size="sm" variant="outline" onClick={load} disabled={loading} title="Atualizar">
+          <Button size="sm" variant="secondary" onClick={load} disabled={loading} title="Atualizar" className="shrink-0">
             <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
           </Button>
           <Button size="sm" onClick={openNew} className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0">
