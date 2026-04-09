@@ -916,7 +916,7 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
             </button>
           )}
           <button onClick={load} disabled={loading} title="Atualizar" className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50">
-            <RefreshCw className={cn("w-3.5 h-3.5", loading && "animate-spin")} />
+            <RefreshCw className={cn("w-3.5 h-3.5 text-gray-600", loading && "animate-spin")} />
           </button>
           <div className="h-4 w-px bg-border" />
           <Button size="sm" variant="secondary" className="h-8 gap-1.5 text-xs" onClick={() => setShowPreview(v => !v)}>
@@ -936,7 +936,7 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
             </>
           )}
           <button onClick={handlePrint} title="Imprimir" className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors">
-            <Printer className="w-3.5 h-3.5" />
+            <Printer className="w-3.5 h-3.5 text-gray-600" />
           </button>
         </div>
       </div>
