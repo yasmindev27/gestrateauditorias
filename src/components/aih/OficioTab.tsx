@@ -915,11 +915,11 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
               Limpar
             </Button>
           )}
-          <Button size="sm" variant="outline" className="h-8" onClick={load} disabled={loading}>
+          <Button size="sm" variant="secondary" className="h-8" onClick={load} disabled={loading}>
             <RefreshCw className={cn("w-3.5 h-3.5", loading && "animate-spin")} />
           </Button>
           <div className="h-4 w-px bg-border" />
-          <Button size="sm" variant="outline" className="h-8 gap-1.5 text-xs" onClick={() => setShowPreview(v => !v)}>
+          <Button size="sm" variant="secondary" className="h-8 gap-1.5 text-xs" onClick={() => setShowPreview(v => !v)}>
             {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             {showPreview ? 'Ocultar' : 'Visualizar'}
           </Button>
@@ -935,7 +935,7 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
               </Button>
             </>
           )}
-          <Button size="sm" variant="ghost" className="h-8 gap-1.5 text-xs" onClick={handlePrint}>
+          <Button size="sm" variant="secondary" className="h-8" onClick={handlePrint} title="Imprimir">
             <Printer className="w-3.5 h-3.5" />
           </Button>
         </div>
