@@ -154,33 +154,32 @@ export function AIHTab() {
             <Button size="sm" onClick={openNew} className="mt-1">Adicionar primeiro registro</Button>
           </div>
         ) : (
-          <table className="w-full text-xs border-collapse min-w-[1400px]">
+          <table className="w-full text-xs border-collapse min-w-[900px]">
             <thead className="sticky top-0 z-10">
               <tr className="bg-hospital-header-bg text-primary-foreground">
-                {['AIH', 'Paciente', 'Admissão', 'Alta', 'Perm.', 'Procedimento', 'Clínica', 'Caráter', 'Procedência', 'Encerramento', 'Pendência', 'OPME', 'Vlr OPME', 'Total', 'Total Final', 'Corrigido', 'Ações'].map(h => (
-                  <th key={h} className="text-left px-2 py-2.5 font-semibold whitespace-nowrap border-r border-white/10 last:border-0">{h}</th>
+                <th className="sticky left-0 z-20 bg-hospital-header-bg text-left px-2 py-2.5 font-semibold whitespace-nowrap border-r border-white/10 w-32">AIH</th>
+                <th className="sticky left-32 z-20 bg-hospital-header-bg text-left px-2 py-2.5 font-semibold whitespace-nowrap border-r border-white/10 w-40">Paciente</th>
+                {['Admissão', 'Alta', 'P.', 'Procedimento', 'Clínica', 'Caráter', 'Procedência', 'Encerramento', 'Pendência', 'Total Final', 'Corrig.'].map(h => (
+                  <th key={h} className="text-left px-2 py-2.5 font-semibold whitespace-nowrap border-r border-white/10">{h}</th>
                 ))}
+                <th className="sticky right-0 z-20 bg-hospital-header-bg text-left px-2 py-2.5 font-semibold whitespace-nowrap w-20">Ações</th>
               </tr>
             </thead>
             <tbody>
               {records.map((row, i) => {
                 const perm = permanencia(row.admissao, row.alta);
+                const rowBg = i % 2 === 1 ? 'bg-hospital-row-alt' : 'bg-white';
                 return (
                   <tr
                     key={row.id}
-                    className={cn(
-                      "border-b border-border transition-colors hover:bg-hospital-blue-light/50",
-                      i % 2 === 1 && "bg-hospital-row-alt"
-                    )}
+                    className={cn("border-b border-border transition-colors hover:bg-hospital-blue-light/50", rowBg)}
                   >
-                    <td className="px-2 py-1.5 font-mono font-medium text-primary whitespace-nowrap">{row.aih}</td>
-                    <td className="px-2 py-1.5 whitespace-nowrap max-w-[180px] truncate" title={row.nome_paciente}>{row.nome_paciente}</td>
+                    <td className={cn("sticky left-0 z-10 px-2 py-1.5 font-mono font-medium text-primary whitespace-nowrap border-r border-border", rowBg)}>{row.aih}</td>
+                    <td className={cn("sticky left-32 z-10 px-2 py-1.5 whitespace-nowrap w-40 truncate border-r border-border", rowBg)} title={row.nome_paciente}>{row.nome_paciente}</td>
                     <td className="px-2 py-1.5 whitespace-nowrap tabular-nums">{fmtDate(row.admissao)}</td>
                     <td className="px-2 py-1.5 whitespace-nowrap tabular-nums">{fmtDate(row.alta)}</td>
                     <td className="px-2 py-1.5 text-center tabular-nums font-medium">
-                      {perm !== null ? (
-                        <span className={cn("px-1.5 py-0.5 rounded text-xs", perm === 0 ? 'text-muted-foreground' : 'text-foreground')}>{perm}</span>
-                      ) : '—'}
+                      {perm !== null ? <span>{perm}</span> : '—'}
                     </td>
                     <td className="px-2 py-1.5 font-mono whitespace-nowrap">{row.procedimento ?? '—'}</td>
                     <td className="px-2 py-1.5 whitespace-nowrap">{row.clinica ?? '—'}</td>
@@ -193,11 +192,8 @@ export function AIHTab() {
                       ) : '—'}
                     </td>
                     <td className="px-2 py-1.5 whitespace-nowrap">{row.procedencia ?? '—'}</td>
-                    <td className="px-2 py-1.5 whitespace-nowrap max-w-[150px] truncate" title={row.encerramento ?? ''}>{row.encerramento ?? '—'}</td>
-                    <td className="px-2 py-1.5 max-w-[160px] truncate" title={row.pendencia ?? ''}>{row.pendencia ?? '—'}</td>
-                    <td className="px-2 py-1.5 max-w-[120px] truncate" title={row.opme ?? ''}>{row.opme ?? '—'}</td>
-                    <td className="px-2 py-1.5 whitespace-nowrap tabular-nums text-right">{fmtCurrency(row.valor_opme)}</td>
-                    <td className="px-2 py-1.5 whitespace-nowrap tabular-nums text-right font-medium">{fmtCurrency(row.total)}</td>
+                    <td className="px-2 py-1.5 max-w-[130px] truncate" title={row.encerramento ?? ''}>{row.encerramento ?? '—'}</td>
+                    <td className="px-2 py-1.5 max-w-[140px] truncate" title={row.pendencia ?? ''}>{row.pendencia ?? '—'}</td>
                     <td className="px-2 py-1.5 whitespace-nowrap tabular-nums text-right font-semibold text-primary">{fmtCurrency(row.total_final)}</td>
                     <td className="px-2 py-1.5 whitespace-nowrap">
                       {row.corrigido ? (
@@ -209,20 +205,20 @@ export function AIHTab() {
                         )}>{row.corrigido}</span>
                       ) : '—'}
                     </td>
-                    <td className="px-2 py-1.5 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
+                    <td className={cn("sticky right-0 z-10 px-2 py-1.5 whitespace-nowrap border-l border-border", rowBg)}>
+                      <div className="flex items-center gap-1">
                         <button
                           onClick={() => openEdit(row)}
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-primary/10 hover:bg-primary/20 text-primary text-[11px] font-medium transition-colors border border-primary/20"
-                          title="Editar registro"
+                          className="p-1 rounded bg-primary/10 hover:bg-primary/20 text-primary transition-colors border border-primary/20"
+                          title="Editar"
                         >
-                          <Pencil className="w-3 h-3" /> Editar
+                          <Pencil className="w-3 h-3" />
                         </button>
                         <button
                           onClick={() => handleDelete(row.id)}
                           disabled={deletingId === row.id}
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-destructive/10 hover:bg-destructive/20 text-destructive text-[11px] font-medium transition-colors border border-destructive/20"
-                          title="Excluir registro"
+                          className="p-1 rounded bg-destructive/10 hover:bg-destructive/20 text-destructive transition-colors border border-destructive/20"
+                          title="Excluir"
                         >
                           <Trash2 className="w-3 h-3" />
                         </button>
