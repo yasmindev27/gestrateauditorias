@@ -304,7 +304,7 @@ export function RelatoriosTab() {
               Limpar
             </Button>
           )}
-          <Button size="sm" variant="secondary" className="h-8" onClick={load} disabled={loading}>
+          <Button size="sm" variant="outline" className="h-8 border-border bg-muted hover:bg-muted/80" onClick={load} disabled={loading}>
             <RefreshCw className={cn("w-3.5 h-3.5", loading && "animate-spin")} />
           </Button>
         </div>

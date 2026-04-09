@@ -170,7 +170,7 @@ export function MovDocTab({ readOnly = false }: { readOnly?: boolean }) {
           <Badge variant="secondary" className="ml-1 text-xs">{records.length} lançamentos</Badge>
         </div>
         <div className="flex items-center gap-2">
-          <Button size="sm" variant="secondary" onClick={load} disabled={loading}>
+          <Button size="sm" variant="outline" className="border-border bg-muted hover:bg-muted/80" onClick={load} disabled={loading}>
             <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
           </Button>
           {!readOnly && (

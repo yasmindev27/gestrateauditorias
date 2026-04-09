@@ -915,7 +915,7 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
               Limpar
             </Button>
           )}
-          <Button size="sm" variant="secondary" className="h-8" onClick={load} disabled={loading}>
+          <Button size="sm" variant="outline" className="h-8 border-border bg-muted hover:bg-muted/80" onClick={load} disabled={loading}>
             <RefreshCw className={cn("w-3.5 h-3.5", loading && "animate-spin")} />
           </Button>
           <div className="h-4 w-px bg-border" />
@@ -935,7 +935,7 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
               </Button>
             </>
           )}
-          <Button size="sm" variant="secondary" className="h-8" onClick={handlePrint} title="Imprimir">
+          <Button size="sm" variant="outline" className="h-8 border-border bg-muted hover:bg-muted/80" onClick={handlePrint} title="Imprimir">
             <Printer className="w-3.5 h-3.5" />
           </Button>
         </div>
