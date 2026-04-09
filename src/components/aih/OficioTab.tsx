@@ -913,7 +913,7 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
           {(dateFrom || dateTo) && (
             <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={() => { setDateFrom(''); setDateTo(''); }}>
               Limpar
-            </button>
+            </Button>
           )}
           <button onClick={load} disabled={loading} title="Atualizar" className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50">
             <RefreshCw className={cn("w-3.5 h-3.5 text-gray-600", loading && "animate-spin")} />
@@ -922,17 +922,17 @@ export function OficioTab({ readOnly = false }: { readOnly?: boolean }) {
           <Button size="sm" variant="secondary" className="h-8 gap-1.5 text-xs" onClick={() => setShowPreview(v => !v)}>
             {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             {showPreview ? 'Ocultar' : 'Visualizar'}
-          </button>
+          </Button>
           {!readOnly && (
             <>
               <Button size="sm" variant="outline" className="h-8 gap-1.5 text-xs" onClick={handleExportExcel}>
                 <FileSpreadsheet className="w-3.5 h-3.5" />
                 Excel
-              </button>
+              </Button>
               <Button size="sm" className="h-8 gap-1.5 text-xs" onClick={handleExportWord} disabled={exporting}>
                 {exporting ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
                 Word (.docx)
-              </button>
+              </Button>
             </>
           )}
           <button onClick={handlePrint} title="Imprimir" className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors">
