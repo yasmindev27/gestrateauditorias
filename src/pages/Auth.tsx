@@ -14,7 +14,7 @@ const Auth = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -31,10 +31,17 @@ const Auth = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      toast({ title: "Preencha email e senha", variant: "destructive" });
+    if (!username || !password) {
+      toast({ title: "Preencha usuário e senha", variant: "destructive" });
       return;
     }
+
+    // Mapeamento de usuários (username → email real)
+    const userMap: Record<string, string> = {
+      luiza: "luiza7enfermeira@gmail.com",
+    };
+    const key = username.toLowerCase().trim();
+    const email = userMap[key] ?? `${key}@gestrateauditorias.app`;
 
     setIsLoading(true);
     try {
@@ -42,9 +49,7 @@ const Auth = () => {
       if (error) {
         toast({
           title: "Erro ao entrar",
-          description: error.message === "Invalid login credentials"
-            ? "Email ou senha incorretos."
-            : error.message,
+          description: "Usuário ou senha incorretos.",
           variant: "destructive",
         });
       }
@@ -76,15 +81,16 @@ const Auth = () => {
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">Usuário</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="username"
+                  type="text"
+                  placeholder="Nome de usuário"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   disabled={isLoading}
-                  autoComplete="email"
+                  autoComplete="username"
+                  autoCapitalize="none"
                 />
               </div>
 
