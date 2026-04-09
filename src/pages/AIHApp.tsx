@@ -6,7 +6,7 @@ import { MovDocTab } from '@/components/aih/MovDocTab';
 import { RelatoriosTab } from '@/components/aih/RelatoriosTab';
 import { OficioTab } from '@/components/aih/OficioTab';
 import { cn } from '@/lib/utils';
-import { Activity, FileSpreadsheet, FileText, BarChart3, ScrollText, LogOut } from 'lucide-react';
+import { FileSpreadsheet, FileText, BarChart3, ScrollText, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logoGestrategic from '@/assets/logo-gestrategic.jpg';
 
@@ -59,7 +59,9 @@ const AIHApp = () => {
           </div>
           <div className="flex items-center gap-3">
             {userEmail && (
-              <span className="hidden sm:block text-xs text-white/60">{userEmail}</span>
+              <span className="hidden sm:block text-xs text-white/60 capitalize">
+                {userEmail.split('@')[0]}
+              </span>
             )}
             <Button
               variant="ghost"
