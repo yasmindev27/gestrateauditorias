@@ -36,12 +36,8 @@ const Auth = () => {
       return;
     }
 
-    // Mapeamento de usuários (username → email real)
-    const userMap: Record<string, string> = {
-      luiza: "luiza7enfermeira@gmail.com",
-    };
     const key = username.toLowerCase().trim();
-    const email = userMap[key] ?? `${key}@gestrateauditorias.app`;
+    const email = `${key}@gestrateauditorias.app`;
 
     setIsLoading(true);
     try {
